@@ -64,7 +64,6 @@ public class CassandraHelper {
 
     public void addKey(String key) {
         Session session = this.getSession();
-
         
         if(key.length()>0) {
             try {

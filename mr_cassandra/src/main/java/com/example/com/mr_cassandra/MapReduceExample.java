@@ -15,33 +15,35 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-/*
- *  Author: Manu Mukerji <next2manu@gmail.com>
- * 
- */
+
 
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 public class MapReduceExample {
 
+    //Mapper Class 
     public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable>{
 
+        //Cassandra helper used to write data
         private CassandraHelper cclient = new CassandraHelper();
 
 
         private final static IntWritable one = new IntWritable(1);
 
+        //Map method
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
             context.write(value, one);
             cclient.addKey(line.toString());
         }
 
+        //Sets up the Cassandra connection to be used by the mapper
         public void setup(Context context) {
             cclient.createConnection(""); 
         }
 
+        //Closes the Cassandra connection after the mapper is done
         public void cleanup(Context context) {
             cclient.closeConnection();
         }

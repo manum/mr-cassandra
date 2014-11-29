@@ -15,11 +15,16 @@ public class CassandraTester {
         
         CassandraHelper client = new CassandraHelper();
         
+        //Create the connection
         client.createConnection(host);
         
         System.out.println("starting writes");
         
+        //Add test value
         client.addKey("test1234");
+        
+        //Close the connection
+        client.closeConnection();
         
         System.out.println("Write Complete");
     }
