@@ -24,4 +24,3 @@ public class CassandraTester {
         System.out.println("Write Complete");
     }
 }
-
